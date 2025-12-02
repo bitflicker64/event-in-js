@@ -1,5 +1,3 @@
-
-
 /****************************************
  * 1️⃣ THEME TOGGLE (click event)
  * --------------------------------------
@@ -15,18 +13,16 @@
  *      → change button text to "Switch Light Mode"
  ****************************************/
 let tm = document.getElementById("themeBtn");
-tm.innerHTML="drk"
-tm.addEventListener('click',
- function (){
-    let body = document.querySelector("body");
-    if (body.className=='dark'){
-        body.className="Light";
-        tm.innerText = "drk";
-    }
-    else{
-        body.className="dark";
-        tm.innerText = "light";
-    }
+tm.innerHTML = "drk";
+tm.addEventListener("click", function () {
+  let body = document.querySelector("body");
+  if (body.className == "dark") {
+    body.className = "Light";
+    tm.innerText = "drk";
+  } else {
+    body.className = "dark";
+    tm.innerText = "light";
+  }
 });
 /****************************************
  * 2️⃣ ADD TASK (click event)
@@ -44,22 +40,20 @@ tm.addEventListener('click',
  *      → update total count
  ****************************************/
 let task = document.getElementById("taskInput");
-let btx= document.getElementById("addBtn");
-let list = document.getElementById("taskList")
-btx.addEventListener('click',function(){
-    if (task.value){
-    let pp= task.value;
-    let ctx =`
-    <li style="color:black">
+let btx = document.getElementById("addBtn");
+let list = document.getElementById("taskList");
+btx.addEventListener("click", function () {
+  if (task.value) {
+    let pp = task.value;
+    let ctx = `
+    <li style="color:black" class="task-item">
     <span>${pp}</span>
     <button>Delete</button>
-    </li>`
-    list.innerHTML+=ctx;
-    }
-    else{
-        alert("task daaal madar chodddd")
-    }
-
+    </li>`;
+    list.innerHTML += ctx;
+  } else {
+    alert("task daal");
+  }
 });
 
 /****************************************
@@ -76,10 +70,30 @@ btx.addEventListener('click',function(){
  *      → show <li> if matching
  ****************************************/
 
-
+const sI = document.getElementById("searchInput");
+sI.addEventListener("input", function (e) {
+  const searchValue = e.target.value.toLowerCase();
+  const tasks = document.querySelectorAll("#taskList .task-item");
+  tasks.forEach((taskItem) => {
+    const taskText = taskItem.querySelector("span").textContent.toLowerCase();
+    if (taskText.includes(searchValue)) {
+      taskItem.style.display = "";
+    } else {
+      taskItem.style.display = "none";
+    }
+  });
+});
+// ...existing code...
+function updateCount() {
+  const total = list.querySelectorAll('li').length;
+  const countEl = document.getElementById('count');
+  countEl.textContent = `Total Task: ${total}`;
+}
+updateCount();
+// ...existing code...
 /****************************************
  * 3.5️⃣ ADD TASK USING KEYDOWN (Enter key)
- * --------------------------------------
+ * --------------------------------------🫡
  * Task:
  * - Add a "keydown" event listener to the task input field.
  * - When a key is pressed:
@@ -88,7 +102,6 @@ btx.addEventListener('click',function(){
  *            → perform the SAME steps as clicking Add button
  *            (get value → validate → create <li> → add to list → clear input → update count)
  ****************************************/
-
 
 /****************************************
  * 4️⃣ DELETE TASK (event delegation)
@@ -102,7 +115,6 @@ btx.addEventListener('click',function(){
  *            → update total count
  ****************************************/
 
-
 /****************************************
  * 5️⃣ HOVER EFFECT (mouseover + mouseout)
  * --------------------------------------
@@ -115,7 +127,6 @@ btx.addEventListener('click',function(){
  *      → if leaving a <li>
  *            → reset the background color
  ****************************************/
-
 
 /****************************************
  * 6️⃣ TOTAL TASK COUNTER FUNCTION
